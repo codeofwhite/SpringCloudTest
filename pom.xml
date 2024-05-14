@@ -12,9 +12,10 @@
     <packaging>pom</packaging>
     <modules>
         <module>springCloud-api</module>
-        <module>springCloud-provider</module>
-        <module>springCloud-eureka</module>
-        <module>springCloud-client</module>
+        <module>springCloud-provider-8001</module>
+        <module>springCloud-eureka-8002</module>
+        <module>springCloud-client-80</module>
+        <module>springCloud-eureka-8003</module>
     </modules>
 
     <!-- 版本控制 -->
