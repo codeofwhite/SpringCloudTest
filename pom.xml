@@ -16,6 +16,9 @@
         <module>springCloud-eureka-8002</module>
         <module>springCloud-client-80</module>
         <module>springCloud-eureka-8003</module>
+        <module>springCloud-gateway-9527</module>
+        <module>springCloud-provider-hystrix-8004</module>
+        <module>springCloud-client-feign-81</module>
     </modules>
 
     <!-- 版本控制 -->

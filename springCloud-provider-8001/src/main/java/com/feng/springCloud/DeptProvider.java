@@ -1,8 +1,10 @@
 package com.feng.springCloud;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @author 拾万个为什么
@@ -11,9 +13,11 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  */
 @SpringBootApplication
 @EnableEurekaClient
+@MapperScan("com.feng.springCloud.mapper")
 public class DeptProvider {
 
     public static void main(String[] args) {
-        SpringApplication.run(DeptProvider.class , args);
+
+        ConfigurableApplicationContext run =  SpringApplication.run(DeptProvider.class , args);
     }
 }

@@ -22,9 +22,10 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     name: datasource
     #驱动
-    driver-class-name: org.gjt.mm.mysql.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     #数据库url，数据库名称根据自己的定
-    url: jdbc:mysql://localhost:3307/shiwangeweishenme?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3307/shiwangeweishenme?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+
     username: root
     password: Jason20040903
     #通过别名的方式配置扩展插件,stat日志用的filter
@@ -60,7 +61,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8002/eureka/
+      defaultZone: http://eureka8002:8002/eureka/,http://eureka8003:8003/eureka/
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}
@@ -75,6 +76,10 @@ management:
 info:
   app:
     name: node16-boot-actuator
-    port: 8016
+    port: 8001
     version: 1.0.0
     author: cicada
+
+# 这要开，不然feign会找不到这个provider
+security:
+  open: Y

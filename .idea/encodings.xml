@@ -5,12 +5,18 @@
     <file url="file://$PROJECT_DIR$/springCloud-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-client-80/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-client-80/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-client-feign-81/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-client-feign-81/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-eureka-8002/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-eureka-8002/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-eureka-8003/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-eureka-8003/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-gateway-9527/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-gateway-9527/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-provider-8001/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-provider-8001/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-provider-hystrix-8004/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-provider-hystrix-8004/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

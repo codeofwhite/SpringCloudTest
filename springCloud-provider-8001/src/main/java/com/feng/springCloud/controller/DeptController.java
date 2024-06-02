@@ -1,5 +1,6 @@
 package com.feng.springCloud.controller;
 
+import com.feng.springCloud.entry.User;
 import com.feng.springCloud.pojo.Dept;
 import com.feng.springCloud.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,14 @@ public class DeptController {
         return deptService.selectDeptById(id);
     }
 
+    // 用来测试网关Gateway
+    @GetMapping(value = "/get/{id}")
+    public Dept getAllUser(@PathVariable("id") int id){
+        return deptService.selectDeptById(id);
+    }
+
+    @GetMapping(value = "/test/hello")
+    public String test(){
+        return "Hello";
+    }
 }

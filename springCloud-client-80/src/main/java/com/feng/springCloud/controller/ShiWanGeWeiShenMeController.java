@@ -25,7 +25,7 @@ public class ShiWanGeWeiShenMeController {
     /**
      *  你的服务提供者配置的是什么port，你就按照你的你来
      */
-    // 通过 url 地址调用
+    // 通过 url 地址调用， 单机版
     // private static final String REST_URL_PREFIX = "http://localhost:8001";
 
     // 通过服务名进行调用
