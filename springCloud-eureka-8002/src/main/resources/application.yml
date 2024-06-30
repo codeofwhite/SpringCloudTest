@@ -19,7 +19,8 @@ eureka:
     #其他服务需要来到这个服务注册或发现，其它服务依靠下面这个url可以连接到Eureka
     service-url:
       #访问的url，使用动态拼接，可以访问下面的地址监控到微服务的运行
-      defaultZone: http://eureka8003:8003/
+      #要加eureka不然provider访问不了
+      defaultZone: http://eureka8003:8003/eureka/
 
   server:
     #关闭自我保护机制，保证不可用服务被及时踢除

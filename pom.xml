@@ -19,6 +19,7 @@
         <module>springCloud-gateway-9527</module>
         <module>springCloud-provider-hystrix-8004</module>
         <module>springCloud-client-feign-81</module>
+        <module>springCloud-provider-8005</module>
     </modules>
 
     <!-- 版本控制 -->
@@ -28,7 +29,8 @@
         <swagger.version>2.8.0</swagger.version>
         <junit.verison>4.12</junit.verison>
         <lombok.version>1.18.12</lombok.version>
-        <druid.version>1.1.2</druid.version>
+        <druid.version>1
+            .1.2</druid.version>
         <springboot.version>2.1.4.RELEASE</springboot.version>
         <springCloud.version>Greenwich.SR1</springCloud.version>
         <log4j.version>2.13.3</log4j.version>

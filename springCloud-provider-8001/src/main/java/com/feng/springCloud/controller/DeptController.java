@@ -1,13 +1,9 @@
 package com.feng.springCloud.controller;
 
-import com.feng.springCloud.entry.User;
 import com.feng.springCloud.pojo.Dept;
 import com.feng.springCloud.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 拾万个为什么
@@ -15,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since JDK1.8
  */
 @RestController
+@CrossOrigin
 public class DeptController {
 
     @Autowired

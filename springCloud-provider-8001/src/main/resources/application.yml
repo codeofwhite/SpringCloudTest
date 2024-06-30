@@ -24,7 +24,7 @@ spring:
     #驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
     #数据库url，数据库名称根据自己的定
-    url: jdbc:mysql://localhost:3307/shiwangeweishenme?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3307/myblog?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
 
     username: root
     password: Jason20040903
@@ -61,7 +61,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka8002:8002/eureka/,http://eureka8003:8003/eureka/
+      defaultZone: http://eureka8002:8002/eureka/, http://eureka8003:8003/eureka/
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}

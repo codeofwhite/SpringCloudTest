@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Objects;
 
@@ -23,10 +24,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserMapper userMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String uemail) throws UsernameNotFoundException {
         //根据用户名查询用户信息
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(User::getUserName,username);
+        wrapper.eq(User::getUemail,uemail);
         User user = userMapper.selectOne(wrapper);
         //如果查询不到数据就通过抛出异常来给出提示
         if(Objects.isNull(user)){

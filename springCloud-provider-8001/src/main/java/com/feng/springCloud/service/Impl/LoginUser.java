@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Collection;
 
@@ -28,12 +29,12 @@ public class LoginUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return user.getUpwd();
     }
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        return user.getUemail();
     }
 
     @Override

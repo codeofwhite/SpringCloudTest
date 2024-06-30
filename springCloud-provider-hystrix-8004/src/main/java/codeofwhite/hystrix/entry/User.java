@@ -1,4 +1,4 @@
-package com.feng.springCloud.entry;
+package codeofwhite.hystrix.entry;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
