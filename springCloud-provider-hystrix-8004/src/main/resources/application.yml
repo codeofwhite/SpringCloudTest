@@ -65,3 +65,7 @@ info:
     port: 8004
     version: 1.0.0
     author: cicada
+
+mybatis:
+  type-aliases-package: codeofwhite.hystrix.entity
+  mapper-locations: classpath:mapper/*.xml
