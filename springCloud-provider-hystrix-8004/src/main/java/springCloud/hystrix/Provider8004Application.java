@@ -15,9 +15,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient //开启 Eureka 客户端功能
 @EnableCircuitBreaker //激活熔断器功能
 @MapperScan("springCloud.hystrix.mapper")
-public class SpringCloudProviderHystrix8004Application {
+public class Provider8004Application {
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloudProviderHystrix8004Application.class, args);
+        SpringApplication.run(Provider8004Application.class, args);
     }
 
 }

@@ -14,10 +14,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 @EnableEurekaClient
 @MapperScan("springCloud.mapper")
-public class DeptProvider {
+public class Provider8001Application {
 
     public static void main(String[] args) {
 
-        ConfigurableApplicationContext run = SpringApplication.run(DeptProvider.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(Provider8001Application.class, args);
     }
 }
