@@ -13,12 +13,14 @@ public interface DeptMapper {
 
     /**
      * 添加部门
+     *
      * @return bloolean
      */
     public boolean addDept(Dept dept);
 
     /**
-     *  查询部门
+     * 查询部门
+     *
      * @return Dept
      */
     public Dept slel(int id);

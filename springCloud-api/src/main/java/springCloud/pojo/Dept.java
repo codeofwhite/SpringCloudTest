@@ -15,8 +15,10 @@ import java.io.Serializable;
 
 @Data
 @Accessors(chain = true)  //启用链式结构
+// 链式意味着可以 Dept dept = new Dept().setDeptNum(1).setName("Development");
 @NoArgsConstructor  //给类提供一个无参构造函数
 @TableName("dept")
+// 实现 Serializable 接口，意味着可以被虚拟化
 public class Dept implements Serializable {
 
     /**

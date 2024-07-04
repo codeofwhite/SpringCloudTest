@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableEurekaClient
 @EnableFeignClients // 开启Feign
 // 这边我们不连数据库
-@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class}) // 启动而无需连接数据库，不加这个会报错，如果不连的话
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class}) // 启动而无需连接数据库，不加这个会报错，如果不连的话
 public class ClientFeign81Application {
     public static void main(String[] args) {
         SpringApplication.run(ClientFeign81Application.class, args);

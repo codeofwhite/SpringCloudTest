@@ -15,17 +15,17 @@ import javax.annotation.Resource;
  * @Description
  */
 @RestController
-public class DeptController_Client {
+public class Client81DeptController {
     @Resource
     private DeptFeignService deptFeignService;
 
     @RequestMapping(value = "/client81/dept/get/{id}")
     public Dept selectDeptById(@PathVariable("id") Integer id) {
-         return deptFeignService.selectDeptById(id);
+        return deptFeignService.selectDeptById(id);
     }
 
     @GetMapping(value = "client81/test/hello")
-    public String test(){
+    public String test() {
         return deptFeignService.test();
     }
 }

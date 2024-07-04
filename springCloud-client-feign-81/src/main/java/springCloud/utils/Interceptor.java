@@ -31,7 +31,7 @@ public class Interceptor implements RequestInterceptor {
         ServletRequestAttributes servletRequestAttributes =
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         //防止空指针
-        if (servletRequestAttributes==null) {
+        if (servletRequestAttributes == null) {
             return;
         }
         //获取原Request对象
@@ -44,7 +44,7 @@ public class Interceptor implements RequestInterceptor {
             //获取值
             String value = request.getHeader(name);
             //放到feign调用对象的request中去
-            requestTemplate.header(name,value);
+            requestTemplate.header(name, value);
         }
     }
 }

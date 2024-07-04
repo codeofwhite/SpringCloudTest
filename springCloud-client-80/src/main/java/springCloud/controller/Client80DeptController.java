@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
  * @since JDK1.8
  */
 @RestController
-public class DeptController {
+public class Client80DeptController {
 
     /**
      *  使用这个模板来调用服务

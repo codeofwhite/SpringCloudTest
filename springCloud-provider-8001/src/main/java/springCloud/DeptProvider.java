@@ -18,6 +18,6 @@ public class DeptProvider {
 
     public static void main(String[] args) {
 
-        ConfigurableApplicationContext run =  SpringApplication.run(DeptProvider.class , args);
+        ConfigurableApplicationContext run = SpringApplication.run(DeptProvider.class, args);
     }
 }

@@ -12,9 +12,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)//排除自动配置
 @EnableEurekaClient
-public class DeptClient {
+public class Client80Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(DeptClient.class , args);
+        SpringApplication.run(Client80Application.class , args);
     }
 }
