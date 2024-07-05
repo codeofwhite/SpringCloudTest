@@ -24,7 +24,7 @@ public class QuestionsController {
     private QuestionsService questionsService;
 
     @PostMapping("/insertQuestion")
-    public String insertQuestion(@RequestBody Questions questions){
+    public String insertQuestion(@RequestBody Questions questions) {
         // 获取当前时间：
         Calendar calendar = Calendar.getInstance();
         Date currentDate = new Date(calendar.getTime().getTime());
@@ -41,7 +41,7 @@ public class QuestionsController {
     }
 
     @GetMapping("/getAllQuestions")
-    public List<Questions> getAllQuestions(){
-        return  questionsService.getAllQuestions();
+    public List<Questions> getAllQuestions() {
+        return questionsService.getAllQuestions();
     }
 }

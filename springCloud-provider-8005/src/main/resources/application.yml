@@ -35,3 +35,11 @@ info:
     port: 8005
     version: 1.0.0
     author: cicada
+
+minio:
+  config:
+    url: http://localhost:9000/
+    accessKey: gAjYSAJDImJP9ZvqgJB6
+    secretKey: cb8SkANxDCm90kdLz2puij4U7J8ZmlTBWAHYInT3
+    secure: false
+    bucketName: myblogbucket

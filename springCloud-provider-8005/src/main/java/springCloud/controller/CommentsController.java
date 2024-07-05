@@ -25,7 +25,7 @@ public class CommentsController {
     private CommentsService commentsService;
 
     @PostMapping("/insertComment")
-    public String insertComment(@RequestBody Comments comments){
+    public String insertComment(@RequestBody Comments comments) {
         // 获取当前时间：
         Calendar calendar = Calendar.getInstance();
         Date currentDate = new Date(calendar.getTime().getTime());
@@ -42,7 +42,7 @@ public class CommentsController {
     }
 
     @GetMapping("/getAllComments")
-    public List<Comments> getAllComments(String blogId){
+    public List<Comments> getAllComments(String blogId) {
         return commentsService.getAllComments(blogId);
     }
 }
