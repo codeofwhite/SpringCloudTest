@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author codeofwhite
@@ -29,6 +30,10 @@ public class Blogs {
 
     private Date updateDate;
 
+    private Long likesCount = 0L; // 初始化为0
+
+    private List<String> likedUserIds;
+
     @Override
     public String toString() {
         return "Blogs{" +
@@ -38,6 +43,8 @@ public class Blogs {
                 ", category='" + category + '\'' +
                 ", create_date=" + createDate +
                 ", update_date=" + updateDate +
+                ", likesCount=" + likesCount +
+                ", likedUserIds=" + likedUserIds +
                 '}';
     }
 

@@ -1,6 +1,7 @@
 package springCloud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springCloud.entity.Blogs;
@@ -70,5 +71,29 @@ public class BlogController {
     public List<Blogs> getAllBlogs() {
         return blogsService.getAllBlogs();
 
+    }
+
+    @PostMapping("/like")
+    public ResponseEntity<?> like(@RequestParam("blogId") String blogId, @RequestParam("userId") String userId) {
+        blogsService.likeBlog(blogId, userId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/unlike")
+    public ResponseEntity<?> unlike(@RequestParam("blogId") String blogId, @RequestParam("userId") String userId) {
+        blogsService.unlikeBlog(blogId, userId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/getLikesCount")
+    public Long getLikes(@RequestParam("blogId") String blogId) {
+        return blogsService.getLikesCount(blogId);
+    }
+
+    @PostMapping("/checkLikeStatus")
+    public ResponseEntity<?> checkLikeStatus(@RequestParam("blogId") String blogId,
+                                             @RequestParam("userId") String userId) {
+        boolean isLiked = blogsService.checkLikeStatus(blogId, userId);
+        return ResponseEntity.ok(isLiked);
     }
 }
