@@ -1,5 +1,5 @@
 // 一个配置项，可以配置跨域之类的，这个也没想好怎么写，先等着
-// 这边写得不是很熟悉，有些地方会报错，日后再说
+// 这边写得不是很熟悉，有些地方会报错，日后再说吧
 package springCloud.config;
 
 import org.springframework.context.annotation.Configuration;
