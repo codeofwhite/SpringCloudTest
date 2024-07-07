@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="springCloud-client-80" />
+        <module name="springCloud-client-feign-81" />
+        <module name="springCloud-provider-8001" />
+        <module name="springCloud-api" />
+        <module name="springCloud-eureka-8003" />
+        <module name="springCloud-provider-8005" />
+        <module name="springCloud-eureka-8002" />
+        <module name="springCloud-provider-hystrix-8004" />
+        <module name="springCloud-gateway-9527" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="springCloud-api" target="1.8" />
+      <module name="springCloud-client-80" target="1.8" />
+      <module name="springCloud-client-feign-81" target="1.8" />
+      <module name="springCloud-eureka-8002" target="1.8" />
+      <module name="springCloud-eureka-8003" target="1.8" />
+      <module name="springCloud-gateway-9527" target="1.8" />
+      <module name="springCloud-provider-8001" target="1.8" />
+      <module name="springCloud-provider-8005" target="1.8" />
+      <module name="springCloud-provider-hystrix-8004" target="1.8" />
+      <module name="SpringCloudTest" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

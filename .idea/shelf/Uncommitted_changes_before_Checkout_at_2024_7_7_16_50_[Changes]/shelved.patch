@@ -1,0 +1,293 @@
+Index: springCloud-gateway-9527/src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>server:\r\n  port: 9527\r\nspring:\r\n  application:\r\n    name: springCloud-gateway-9527\r\n  cloud:\r\n    gateway:\r\n      routes:\r\n        - id: springCloud-provider-8001 #路由的ID，没有固定规则但要求唯一，建议配合服务名\r\n          uri: http://localhost:8001   #匹配后提供服务的路由地址\r\n          predicates:\r\n            - Path=/dept/**   #断言,路径相匹配的进行路由\r\n\r\neureka:\r\n  instance:\r\n    prefer-ip-address: true\r\n    hostname: cloud-gate9527\r\n  client:\r\n    register-with-eureka: true\r\n    fetch-registry: true\r\n    service-url:\r\n      defaultZone: http://eureka8002:8002/eureka/, http://eureka8003:8003/eureka/\r\n
+===================================================================
+diff --git a/springCloud-gateway-9527/src/main/resources/application.yml b/springCloud-gateway-9527/src/main/resources/application.yml
+--- a/springCloud-gateway-9527/src/main/resources/application.yml	
++++ b/springCloud-gateway-9527/src/main/resources/application.yml	
+@@ -20,3 +20,19 @@
+     fetch-registry: true
+     service-url:
+       defaultZone: http://eureka8002:8002/eureka/, http://eureka8003:8003/eureka/
++
++management:
++  endpoints:
++    web:
++      exposure:
++        include: "*"
++
++# 描述项目基础信息
++info:
++  app:
++    name: node16-boot-actuator
++    port: 9527
++    version: 1.0.0
++    author: codeofwhite
++
++
+Index: springCloud-provider-8001/pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <!--博客园:拾万个为什么 -->\r\n    <parent>\r\n        <artifactId>springcloud</artifactId>\r\n        <groupId>com.shiwangeweishenme</groupId>\r\n        <version>1.0-SNAPSHOT</version>\r\n    </parent>\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <artifactId>springCloud-provider-8001</artifactId>\r\n\r\n    <dependencies>\r\n        <!--还要引入这个，不然后面javax.servlet依赖找不到-->\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-web</artifactId>\r\n        </dependency>\r\n\r\n        <!--springboot整合springsecurity-->\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-security</artifactId>\r\n        </dependency>\r\n\r\n        <!--redis依赖-->\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-data-redis</artifactId>\r\n        </dependency>\r\n\r\n        <!--fastjson依赖-->\r\n        <dependency>\r\n            <groupId>com.alibaba</groupId>\r\n            <artifactId>fastjson</artifactId>\r\n            <version>1.2.33</version>\r\n        </dependency>\r\n\r\n        <!--jwt依赖-->\r\n        <dependency>\r\n            <groupId>io.jsonwebtoken</groupId>\r\n            <artifactId>jjwt</artifactId>\r\n            <version>0.9.0</version>\r\n        </dependency>\r\n\r\n        <!--引入Lombok依赖，方便实体类开发-->\r\n        <dependency>\r\n            <groupId>org.projectlombok</groupId>\r\n            <artifactId>lombok</artifactId>\r\n        </dependency>\r\n\r\n        <!--引入MybatisPuls依赖-->\r\n        <dependency>\r\n            <groupId>com.baomidou</groupId>\r\n            <artifactId>mybatis-plus-boot-starter</artifactId>\r\n            <version>3.4.3</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.mybatis.spring.boot</groupId>\r\n            <artifactId>mybatis-spring-boot-starter</artifactId>\r\n            <version>2.1.1</version>\r\n        </dependency>\r\n\r\n        <!--引入mysql驱动的依赖-->\r\n        <dependency>\r\n            <groupId>mysql</groupId>\r\n            <artifactId>mysql-connector-java</artifactId>\r\n            <version>8.0.11</version>\r\n        </dependency>\r\n\r\n        <!--引入Junit，用于测试-->\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-test</artifactId>\r\n        </dependency>\r\n\r\n        <!--自己的-->\r\n        <dependency>\r\n            <groupId>com.shiwangeweishenme</groupId>\r\n            <artifactId>springCloud-api</artifactId>\r\n            <version>1.0-SNAPSHOT</version>\r\n            <scope>compile</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.cloud</groupId>\r\n            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>\r\n            <version>2.0.2.RELEASE</version>\r\n            <!-- 排除Jersey，用SpringMVC Rest方式-->\r\n            <exclusions>\r\n                <exclusion>\r\n                    <groupId>com.sun.jersey</groupId>\r\n                    <artifactId>jersey-client</artifactId>\r\n                </exclusion>\r\n                <exclusion>\r\n                    <groupId>com.sun.jersey</groupId>\r\n                    <artifactId>jersey-core</artifactId>\r\n                </exclusion>\r\n                <exclusion>\r\n                    <groupId>com.sun.jersey.contribs</groupId>\r\n                    <artifactId>jersey-apache-client4</artifactId>\r\n                </exclusion>\r\n            </exclusions>\r\n        </dependency>\r\n\r\n        <!-- 监视器 -->\r\n        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-actuator</artifactId>\r\n            <version>3.2.5</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>com.alibaba</groupId>\r\n            <artifactId>druid</artifactId>\r\n            <version>1.0.20</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>junit</groupId>\r\n            <artifactId>junit</artifactId>\r\n            <version>4.13.2</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>io.github.openfeign</groupId>\r\n            <artifactId>feign-core</artifactId>\r\n        </dependency>\r\n    </dependencies>\r\n</project>
+===================================================================
+diff --git a/springCloud-provider-8001/pom.xml b/springCloud-provider-8001/pom.xml
+--- a/springCloud-provider-8001/pom.xml	
++++ b/springCloud-provider-8001/pom.xml	
+@@ -84,6 +84,7 @@
+             <version>1.0-SNAPSHOT</version>
+             <scope>compile</scope>
+         </dependency>
++
+         <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+Index: springCloud-provider-8005/src/main/java/springCloud/service/Impl/BlogsImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package springCloud.service.Impl;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.data.mongodb.core.MongoTemplate;\r\nimport org.springframework.data.mongodb.core.query.Criteria;\r\nimport org.springframework.data.mongodb.core.query.Query;\r\nimport org.springframework.data.mongodb.core.query.Update;\r\nimport org.springframework.stereotype.Service;\r\nimport org.springframework.transaction.annotation.Propagation;\r\nimport org.springframework.transaction.annotation.Transactional;\r\nimport springCloud.entity.Blogs;\r\nimport springCloud.entity.Photos;\r\nimport springCloud.service.BlogsService;\r\n\r\nimport java.util.List;\r\n\r\n/**\r\n * @author codeofwhite\r\n * @date 2024/7/5\r\n * @Description\r\n */\r\n@Service(\"BlogsService\")\r\n@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)\r\npublic class BlogsImpl implements BlogsService {\r\n    @Autowired\r\n    private MongoTemplate mongoTemplate;\r\n\r\n    private static final String COLLECTION_NAME = \"blogs\";\r\n\r\n    @Override\r\n    public void insertBlog(Blogs blogs) {\r\n        mongoTemplate.save(blogs);\r\n    }\r\n\r\n    @Override\r\n    public List<Blogs> getAllBlogs() {\r\n        return mongoTemplate.findAll(Blogs.class, COLLECTION_NAME);\r\n    }\r\n\r\n    // 原子性地更新点赞数\r\n    @Override\r\n    public void likeBlog(String blogId, String userId) {\r\n        Query query = new Query(Criteria.where(\"id\").is(blogId).and(\"likedUserIds\").ne(userId));\r\n        Update update = new Update().addToSet(\"likedUserIds\",userId).inc(\"likesCount\", 1);\r\n        mongoTemplate.findAndModify(query, update, Blogs.class, COLLECTION_NAME);\r\n    }\r\n\r\n    @Override\r\n    public void unlikeBlog(String blogId, String userId) {\r\n        Query query = new Query(Criteria.where(\"id\").is(blogId));\r\n        Update update = new Update().pull(\"likedUserIds\", userId).inc(\"likesCount\", -1);\r\n        mongoTemplate.findAndModify(query, update, Blogs.class, COLLECTION_NAME);\r\n    }\r\n\r\n    @Override\r\n    public Long getLikesCount(String blogId) {\r\n        Blogs blog = mongoTemplate.findById(blogId, Blogs.class);\r\n        assert blog != null;\r\n        return blog.getLikesCount();\r\n    }\r\n\r\n    @Override\r\n    public boolean checkLikeStatus(String blogId, String userId) {\r\n        // 创建查询对象\r\n        Query query = new Query();\r\n        // 添加条件，检查blogId是否匹配\r\n        query.addCriteria(Criteria.where(\"id\").is(blogId));\r\n        // 使用elemMatch操作符检查userId是否在likedUserIds数组中\r\n        // 普通的如上面的查询是找不到的，要用elemMatch\r\n        query.addCriteria(Criteria.where(\"likedUserIds\").elemMatch(new Criteria().in(userId)));\r\n        // 使用MongoTemplate的exists方法检查是否存在匹配的文档\r\n        return mongoTemplate.exists(query, Blogs.class);\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/springCloud-provider-8005/src/main/java/springCloud/service/Impl/BlogsImpl.java b/springCloud-provider-8005/src/main/java/springCloud/service/Impl/BlogsImpl.java
+--- a/springCloud-provider-8005/src/main/java/springCloud/service/Impl/BlogsImpl.java	
++++ b/springCloud-provider-8005/src/main/java/springCloud/service/Impl/BlogsImpl.java	
+@@ -41,7 +41,7 @@
+     @Override
+     public void likeBlog(String blogId, String userId) {
+         Query query = new Query(Criteria.where("id").is(blogId).and("likedUserIds").ne(userId));
+-        Update update = new Update().addToSet("likedUserIds",userId).inc("likesCount", 1);
++        Update update = new Update().addToSet("likedUserIds", userId).inc("likesCount", 1);
+         mongoTemplate.findAndModify(query, update, Blogs.class, COLLECTION_NAME);
+     }
+ 
+Index: springCloud-provider-8001/src/main/java/springCloud/config/WebSecurityConfig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// 一个配置项，可以配置跨域之类的，这个也没想好怎么写，先等着\r\n// 这边写得不是很熟悉，有些地方会报错，日后再说\r\n//package springCloud.config;\r\n//\r\n//import springCloud.utils.LoginFilter;\r\n//import org.springframework.context.annotation.Bean;\r\n//import org.springframework.context.annotation.Configuration;\r\n//import org.springframework.security.config.annotation.web.builders.HttpSecurity;\r\n//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;\r\n//import org.springframework.web.cors.CorsConfiguration;\r\n//import org.springframework.web.cors.CorsConfigurationSource;\r\n//import org.springframework.web.cors.UrlBasedCorsConfigurationSource;\r\n//\r\n//import java.util.Arrays;\r\n//import java.util.Collections;\r\n//\r\n//@Configuration\r\n//public class WebSecurityConfig extends WebSecurityConfigurerAdapter {\r\n//\r\n//    /**\r\n//     * web安全配置\r\n//     */\r\n//    @Override\r\n//    protected void configure(HttpSecurity http) throws Exception {\r\n//        http.authorizeRequests()\r\n//                .anyRequest().authenticated()\r\n//                .and()\r\n//                .formLogin()\r\n//                .and()\r\n//                .cors().configurationSource(corsConfiguration()).and();// 配置 CorsFilter 配置信息\r\n////                .addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);//继承UsernamePasswordAuthenticationFilter，替换原来的UsernamePasswordAuthenticationFilter\r\n//\r\n//    }\r\n//\r\n//    /**\r\n//     * Cors 的配置信息 配置+路径\r\n//     */\r\n//    CorsConfigurationSource corsConfiguration() {\r\n//        // Cors配置类\r\n//        CorsConfiguration corsConfiguration = new CorsConfiguration();\r\n//        corsConfiguration.setAllowCredentials(false); // 是否返回时生成凭证\r\n//        corsConfiguration.setAllowedHeaders(Arrays.asList(\"*\")); // 允许请求携带哪些请求头信息\r\n//        corsConfiguration.setAllowedMethods(Arrays.asList(\"*\")); // 允许哪些类型的请求方法\r\n//        corsConfiguration.setAllowedOrigins(Arrays.asList(\"*\")); // 允许哪些域可以进行方法\r\n//        corsConfiguration.setMaxAge(3600L); // 设置预检的最大的时长\r\n//        corsConfiguration.setExposedHeaders(Collections.emptyList()); // 设置返回暴露的响应头信息\r\n//\r\n//        // 设置注册URL 配置类\r\n//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();\r\n//        source.registerCorsConfiguration(\"/**\", corsConfiguration);\r\n//\r\n//        return source;\r\n//    }\r\n//\r\n//    @Bean\r\n//    LoginFilter loginFilter() throws Exception {\r\n//        LoginFilter loginFilter = new LoginFilter();\r\n//        //设置认证成功返回\r\n////        loginFilter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler());\r\n//        //设置认证失败返回\r\n////        loginFilter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());\r\n//        //这句很关键，重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager\r\n//        loginFilter.setAuthenticationManager(authenticationManagerBean());\r\n////        loginFilter.setRememberMeServices(myPersistentTokenBasedRememberMeServices());\r\n//        loginFilter.setFilterProcessesUrl(\"/login\");\r\n//        return loginFilter;\r\n//    }\r\n//}
+===================================================================
+diff --git a/springCloud-provider-8001/src/main/java/springCloud/config/WebSecurityConfig.java b/springCloud-provider-8001/src/main/java/springCloud/config/WebSecurityConfig.java
+--- a/springCloud-provider-8001/src/main/java/springCloud/config/WebSecurityConfig.java	
++++ b/springCloud-provider-8001/src/main/java/springCloud/config/WebSecurityConfig.java	
+@@ -1,68 +1,56 @@
+ // 一个配置项，可以配置跨域之类的，这个也没想好怎么写，先等着
+ // 这边写得不是很熟悉，有些地方会报错，日后再说
+-//package springCloud.config;
+-//
+-//import springCloud.utils.LoginFilter;
+-//import org.springframework.context.annotation.Bean;
+-//import org.springframework.context.annotation.Configuration;
+-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+-//import org.springframework.web.cors.CorsConfiguration;
+-//import org.springframework.web.cors.CorsConfigurationSource;
+-//import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+-//
+-//import java.util.Arrays;
+-//import java.util.Collections;
+-//
+-//@Configuration
+-//public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+-//
+-//    /**
+-//     * web安全配置
+-//     */
+-//    @Override
+-//    protected void configure(HttpSecurity http) throws Exception {
+-//        http.authorizeRequests()
+-//                .anyRequest().authenticated()
+-//                .and()
+-//                .formLogin()
+-//                .and()
+-//                .cors().configurationSource(corsConfiguration()).and();// 配置 CorsFilter 配置信息
+-////                .addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);//继承UsernamePasswordAuthenticationFilter，替换原来的UsernamePasswordAuthenticationFilter
+-//
+-//    }
+-//
+-//    /**
+-//     * Cors 的配置信息 配置+路径
+-//     */
+-//    CorsConfigurationSource corsConfiguration() {
+-//        // Cors配置类
+-//        CorsConfiguration corsConfiguration = new CorsConfiguration();
+-//        corsConfiguration.setAllowCredentials(false); // 是否返回时生成凭证
+-//        corsConfiguration.setAllowedHeaders(Arrays.asList("*")); // 允许请求携带哪些请求头信息
+-//        corsConfiguration.setAllowedMethods(Arrays.asList("*")); // 允许哪些类型的请求方法
+-//        corsConfiguration.setAllowedOrigins(Arrays.asList("*")); // 允许哪些域可以进行方法
+-//        corsConfiguration.setMaxAge(3600L); // 设置预检的最大的时长
+-//        corsConfiguration.setExposedHeaders(Collections.emptyList()); // 设置返回暴露的响应头信息
+-//
+-//        // 设置注册URL 配置类
+-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+-//        source.registerCorsConfiguration("/**", corsConfiguration);
+-//
+-//        return source;
+-//    }
+-//
+-//    @Bean
+-//    LoginFilter loginFilter() throws Exception {
+-//        LoginFilter loginFilter = new LoginFilter();
+-//        //设置认证成功返回
+-////        loginFilter.setAuthenticationSuccessHandler(new MyAuthenticationSuccessHandler());
+-//        //设置认证失败返回
+-////        loginFilter.setAuthenticationFailureHandler(new MyAuthenticationFailureHandler());
+-//        //这句很关键，重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
+-//        loginFilter.setAuthenticationManager(authenticationManagerBean());
+-////        loginFilter.setRememberMeServices(myPersistentTokenBasedRememberMeServices());
+-//        loginFilter.setFilterProcessesUrl("/login");
+-//        return loginFilter;
+-//    }
+-//}
+\ No newline at end of file
++package springCloud.config;
++
++import org.springframework.context.annotation.Configuration;
++import org.springframework.security.config.annotation.web.builders.HttpSecurity;
++import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
++import org.springframework.web.cors.CorsConfiguration;
++import org.springframework.web.cors.CorsConfigurationSource;
++import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
++
++import java.util.Arrays;
++import java.util.Collections;
++
++@Configuration
++public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
++
++    /**
++     * web安全配置
++     */
++    @Override
++    protected void configure(HttpSecurity http) throws Exception {
++        http
++                // 这句authorizeRequests会我访问的时候一直认证不了，提示我please log in， 加permitAll就好起来了
++                // 本来是authenticated，这个的话有点问题现在还不会调
++                .authorizeRequests()
++                .anyRequest().authenticated()
++                .and()
++                .formLogin()
++                .and()
++                .cors().configurationSource(corsConfiguration()).and() // 配置 CorsFilter 配置信息
++                .csrf().disable()
++                .httpBasic(); // 添加这一行来启用基本认证，不然我直接用户名加密码过不去
++
++    }
++
++    /**
++     * Cors 的配置信息 配置+路径
++     */
++    CorsConfigurationSource corsConfiguration() {
++        // Cors配置类
++        CorsConfiguration corsConfiguration = new CorsConfiguration();
++        corsConfiguration.setAllowCredentials(false); // 是否返回时生成凭证
++        corsConfiguration.setAllowedHeaders(Arrays.asList("*")); // 允许请求携带哪些请求头信息
++        corsConfiguration.setAllowedMethods(Arrays.asList("*")); // 允许哪些类型的请求方法
++        corsConfiguration.setAllowedOrigins(Arrays.asList("*")); // 允许哪些域可以进行方法
++        corsConfiguration.setMaxAge(3600L); // 设置预检的最大的时长
++        corsConfiguration.setExposedHeaders(Collections.emptyList()); // 设置返回暴露的响应头信息
++
++        // 设置注册URL 配置类
++        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
++        source.registerCorsConfiguration("/**", corsConfiguration);
++
++        return source;
++    }
++}
+\ No newline at end of file
+Index: springCloud-gateway-9527/src/main/java/springCloud/gateway/Gateway9527Application.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package springCloud.gateway;\r\n\r\nimport org.springframework.boot.SpringApplication;\r\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\r\nimport org.springframework.cloud.netflix.eureka.EnableEurekaClient;\r\n\r\n/**\r\n * @author codeofwhite\r\n * @date 2024/5/29\r\n * @Description\r\n */\r\n@SpringBootApplication\r\n@EnableEurekaClient\r\npublic class Gateway9527Application {\r\n    public static void main(String[] args) {\r\n        SpringApplication.run(Gateway9527Application.class,args);\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/springCloud-gateway-9527/src/main/java/springCloud/gateway/Gateway9527Application.java b/springCloud-gateway-9527/src/main/java/springCloud/gateway/Gateway9527Application.java
+--- a/springCloud-gateway-9527/src/main/java/springCloud/gateway/Gateway9527Application.java	
++++ b/springCloud-gateway-9527/src/main/java/springCloud/gateway/Gateway9527Application.java	
+@@ -1,3 +1,4 @@
++// Gateway 加 springCloud 认证的方式和其他的有所不同只能说
+ package springCloud.gateway;
+ 
+ import org.springframework.boot.SpringApplication;
+Index: springCloud-provider-8001/src/main/java/springCloud/Provider8001Application.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package springCloud;\r\n\r\nimport org.mybatis.spring.annotation.MapperScan;\r\nimport org.springframework.boot.SpringApplication;\r\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\r\nimport org.springframework.cloud.netflix.eureka.EnableEurekaClient;\r\nimport org.springframework.context.ConfigurableApplicationContext;\r\n\r\n/**\r\n * @author 拾万个为什么\r\n * @date 2021/2/24\r\n * @since JDK1.8\r\n */\r\n@SpringBootApplication\r\n@EnableEurekaClient\r\n@MapperScan(\"springCloud.mapper\")\r\npublic class Provider8001Application {\r\n\r\n    public static void main(String[] args) {\r\n\r\n        ConfigurableApplicationContext run = SpringApplication.run(Provider8001Application.class, args);\r\n    }\r\n}
+===================================================================
+diff --git a/springCloud-provider-8001/src/main/java/springCloud/Provider8001Application.java b/springCloud-provider-8001/src/main/java/springCloud/Provider8001Application.java
+--- a/springCloud-provider-8001/src/main/java/springCloud/Provider8001Application.java	
++++ b/springCloud-provider-8001/src/main/java/springCloud/Provider8001Application.java	
+@@ -1,3 +1,4 @@
++// 一般微服务的话SpringSecurity放在Gateway里面，这里只是一个简单的测试
+ package springCloud;
+ 
+ import org.mybatis.spring.annotation.MapperScan;
+Index: .idea/ApifoxUploaderProjectSetting.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ApifoxUploaderProjectSetting\">\r\n    <option name=\"apiAccessToken\" value=\"APS-kJ6IXM6stue3PI4S90oAq9CFn1WvL9Gw\" />\r\n    <option name=\"apiProjectIds\">\r\n      <array>\r\n        <option value=\"&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABRzcHJpbmdDbG91ZC1wcm92aWRlcnBwcHBwcHBwcHBwcHQAAHQACeagueebruW9lXQAATB0AAk0NDgzMTA5LjB0ABXlvq7mnI3liqHmtYvor5Xpobnnm65xAH4ABXEAfgAG&lt;/byte-array&gt;\" />\r\n        <option value=\"&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABJzcHJpbmdDbG91ZC1jbGllbnRwcHBwcHBwcHBwcHB0AAB0AAnmoLnnm67lvZV0AAEwdAAJNDQ4MzEwOS4wdAAV5b6u5pyN5Yqh5rWL6K+V6aG555uucQB+AAVxAH4ABg==&lt;/byte-array&gt;\" />\r\n        <option value=\"&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABtzcHJpbmdDbG91ZC1jbGllbnQtZmVpZ24tODFwcHBwcHBwcHBwcHB0AAB0AAnmoLnnm67lvZV0AAEwdAAJNDQ4MzEwOS4wdAAV5b6u5pyN5Yqh5rWL6K+V6aG555uucQB+AAVxAH4ABg==&lt;/byte-array&gt;\" />\r\n        <option value=\"&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABlzcHJpbmdDbG91ZC1wcm92aWRlci04MDA1cHBwcHBwcHBwcHBwdAAAdAAJ5qC555uu5b2VdAABMHQACTQ0ODMxMDkuMHQAFeW+ruacjeWKoea1i+ivlemhueebrnEAfgAFcQB+AAY=&lt;/byte-array&gt;\" />\r\n        <option value=\"&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ACFzcHJpbmdDbG91ZC1wcm92aWRlci1oeXN0cml4LTgwMDRwcHBwcHBwcHBwcHB0AAB0AAnmoLnnm67lvZV0AAEwdAAJNDQ4MzEwOS4wdAAV5b6u5pyN5Yqh5rWL6K+V6aG555uucQB+AAVxAH4ABg==&lt;/byte-array&gt;\" />\r\n        <option value=\"&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABlzcHJpbmdDbG91ZC1wcm92aWRlci04MDAxcHBwcHBwcHBwcHBwdAAAdAAJ5qC555uu5b2VdAABMHQACTQ0ODMxMDkuMHQAFeW+ruacjeWKoea1i+ivlemhueebrnEAfgAFcQB+AAY=&lt;/byte-array&gt;\" />\r\n        <option value=\"&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABVzcHJpbmdDbG91ZC1jbGllbnQtODBwcHBwcHBwcHBwcHB0AAB0AAnmoLnnm67lvZV0AAEwdAAJNDQ4MzEwOS4wdAAV5b6u5pyN5Yqh5rWL6K+V6aG555uucQB+AAVxAH4ABg==&lt;/byte-array&gt;\" />\r\n      </array>\r\n    </option>\r\n    <option name=\"treeNodes\" value=\"&lt;byte-array&gt;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&lt;/byte-array&gt;\" />\r\n    <option name=\"treeNodesJTree\" value=\"&lt;byte-array&gt;rO0ABXNyACFqYXZheC5zd2luZy50cmVlLkRlZmF1bHRUcmVlTW9kZWynvpEmGsXl2QMAA1oAEmFza3NBbGxvd3NDaGlsZHJlbkwADGxpc3RlbmVyTGlzdHQAJUxqYXZheC9zd2luZy9ldmVudC9FdmVudExpc3RlbmVyTGlzdDtMAARyb290dAAbTGphdmF4L3N3aW5nL3RyZWUvVHJlZU5vZGU7eHAAc3IAI2phdmF4LnN3aW5nLmV2ZW50LkV2ZW50TGlzdGVuZXJMaXN0kUjMLXPfDt4DAAB4cHB4c3IAJ2phdmF4LnN3aW5nLnRyZWUuRGVmYXVsdE11dGFibGVUcmVlTm9kZcRYv/zyqHHgAwADWgAOYWxsb3dzQ2hpbGRyZW5MAAhjaGlsZHJlbnQAEkxqYXZhL3V0aWwvVmVjdG9yO0wABnBhcmVudHQAIkxqYXZheC9zd2luZy90cmVlL011dGFibGVUcmVlTm9kZTt4cAFzcgAQamF2YS51dGlsLlZlY3RvctmXfVuAO68BAwADSQARY2FwYWNpdHlJbmNyZW1lbnRJAAxlbGVtZW50Q291bnRbAAtlbGVtZW50RGF0YXQAE1tMamF2YS9sYW5nL09iamVjdDt4cAAAAAAAAAABdXIAE1tMamF2YS5sYW5nLk9iamVjdDuQzlifEHMpbAIAAHhwAAAACnNxAH4ABgFzcQB+AAoAAAAAAAAABXVxAH4ADQAAAApzcQB+AAYBcHEAfgAPdXEAfgANAAAAAnQACnVzZXJPYmplY3RzcgAuY29tLml0YW5nY2VudC5pZGVhLnBsdWdpbi5hcGkuYWNjb3VudC5UcmVlTm9kZQAAAAAAAAABAgALTAAHYWxsUGF0aHQAEkxqYXZhL2xhbmcvU3RyaW5nO0wACGNoaWxkcmVudAAPTGphdmEvdXRpbC9NYXA7TAAIZnVsbFBhdGhxAH4AFkwAA2tleXEAfgAWTAAEbmFtZXEAfgAWTAAIcGFyZW50SWRxAH4AFkwACXByb2plY3RJZHEAfgAWTAALcHJvamVjdE5hbWVxAH4AFkwABnRlYW1JZHEAfgAWTAAIdGVhbU5hbWVxAH4AFkwABHR5cGV0ADBMY29tL2l0YW5nY2VudC9pZGVhL3BsdWdpbi9hcGkvYWNjb3VudC9Ob2RlVHlwZTt4cHQAGeS4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&lt;/byte-array&gt;\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/ApifoxUploaderProjectSetting.xml b/.idea/ApifoxUploaderProjectSetting.xml
+--- a/.idea/ApifoxUploaderProjectSetting.xml	
++++ b/.idea/ApifoxUploaderProjectSetting.xml	
+@@ -11,6 +11,7 @@
+         <option value="&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ACFzcHJpbmdDbG91ZC1wcm92aWRlci1oeXN0cml4LTgwMDRwcHBwcHBwcHBwcHB0AAB0AAnmoLnnm67lvZV0AAEwdAAJNDQ4MzEwOS4wdAAV5b6u5pyN5Yqh5rWL6K+V6aG555uucQB+AAVxAH4ABg==&lt;/byte-array&gt;" />
+         <option value="&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABlzcHJpbmdDbG91ZC1wcm92aWRlci04MDAxcHBwcHBwcHBwcHBwdAAAdAAJ5qC555uu5b2VdAABMHQACTQ0ODMxMDkuMHQAFeW+ruacjeWKoea1i+ivlemhueebrnEAfgAFcQB+AAY=&lt;/byte-array&gt;" />
+         <option value="&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABVzcHJpbmdDbG91ZC1jbGllbnQtODBwcHBwcHBwcHBwcHB0AAB0AAnmoLnnm67lvZV0AAEwdAAJNDQ4MzEwOS4wdAAV5b6u5pyN5Yqh5rWL6K+V6aG555uucQB+AAVxAH4ABg==&lt;/byte-array&gt;" />
++        <option value="&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABhzcHJpbmdDbG91ZC1nYXRld2F5LTk1MjdwcHBwcHBwcHBwcHB0AAB0AAnmoLnnm67lvZV0AAEwdAAJNDQ4MzEwOS4wdAAV5b6u5pyN5Yqh5rWL6K+V6aG555uucQB+AAVxAH4ABg==&lt;/byte-array&gt;" />
+       </array>
+     </option>
+     <option name="treeNodes" value="&lt;byte-array&gt;rO0ABXNyABdqYXZhLnV0aWwuTGlua2VkSGFzaE1hcDTATlwQbMD7AgABWgALYWNjZXNzT3JkZXJ4cgARamF2YS51dGlsLkhhc2hNYXAFB9rBwxZg0QMAAkYACmxvYWRGYWN0b3JJAAl0aHJlc2hvbGR4cD9AAAAAAAAMdwgAAAAQAAAAAXQACTI0MzEyMTYuMHNyAC5jb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlRyZWVOb2RlAAAAAAAAAAECAAtMAAdhbGxQYXRodAASTGphdmEvbGFuZy9TdHJpbmc7TAAIY2hpbGRyZW50AA9MamF2YS91dGlsL01hcDtMAAhmdWxsUGF0aHEAfgAFTAADa2V5cQB+AAVMAARuYW1lcQB+AAVMAAhwYXJlbnRJZHEAfgAFTAAJcHJvamVjdElkcQB+AAVMAAtwcm9qZWN0TmFtZXEAfgAFTAAGdGVhbUlkcQB+AAVMAAh0ZWFtTmFtZXEAfgAFTAAEdHlwZXQAMExjb20vaXRhbmdjZW50L2lkZWEvcGx1Z2luL2FwaS9hY2NvdW50L05vZGVUeXBlO3hwdAAM5Liq5Lq656m66Ze0c3EAfgAAP0AAAAAAAAx3CAAAABAAAAAFdAAJNDIyMjc3Ny4wc3EAfgAEdAAZ5Liq5Lq656m66Ze0L+S4quS6uumhueebrnNxAH4AAD9AAAAAAAAAdwgAAAAQAAAAAHgAcHEAfgALdAAY5Liq5Lq66aG555uuICg0MjIyNzc3LjApdAAJMjQzMTIxNi4wdAAJNDIyMjc3Ny4wdAAM5Liq5Lq66aG555uudAAJMjQzMTIxNi4wcH5yAC5jb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50Lk5vZGVUeXBlAAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAHUFJPSkVDVHQACTQyODYwMTYuMHNxAH4ABHQAF+S4quS6uuepuumXtC9zbWFydHN0b3Jlc3EAfgAAP0AAAAAAAAB3CAAAABAAAAAAeABwcQB+ABh0ABZzbWFydHN0b3JlICg0Mjg2MDE2LjApdAAJMjQzMTIxNi4wdAAJNDI4NjAxNi4wdAAKc21hcnRzdG9yZXQACTI0MzEyMTYuMHBxAH4AFnQACTQ0MjY3MzYuMHNxAH4ABHQAH+S4quS6uuepuumXtC/mmbrmhafmlZnogrLlubPlj7BzcQB+AAA/QAAAAAAAAHcIAAAAEAAAAAB4AHBxAH4AIXQAHuaZuuaFp+aVmeiCsuW5s+WPsCAoNDQyNjczNi4wKXQACTI0MzEyMTYuMHQACTQ0MjY3MzYuMHQAEuaZuuaFp+aVmeiCsuW5s+WPsHQACTI0MzEyMTYuMHBxAH4AFnQACTQ0Mjg2NjkuMHNxAH4ABHQAHuS4quS6uuepuumXtC/np5HlpKforq/po54gY29weXNxAH4AAD9AAAAAAAAAdwgAAAAQAAAAAHgAcHEAfgAqdAAd56eR5aSn6K6v6aOeIGNvcHkgKDQ0Mjg2NjkuMCl0AAkyNDMxMjE2LjB0AAk0NDI4NjY5LjB0ABHnp5HlpKforq/po54gY29weXQACTI0MzEyMTYuMHBxAH4AFnQACTQ0ODMxMDkuMHNxAH4ABHQAIuS4quS6uuepuumXtC/lvq7mnI3liqHmtYvor5Xpobnnm65zcQB+AAA/QAAAAAAADHcIAAAAEAAAAAF0AAszLjQwMzYyOTFFN3NxAH4ABHQAMeS4quS6uuepuumXtC/lvq7mnI3liqHmtYvor5Xpobnnm64vRGVwdENvbnRyb2xsZXJzcQB+AAA/QAAAAAAAAHcIAAAAEAAAAAB4AHQADkRlcHRDb250cm9sbGVycQB+ADd0AA5EZXB0Q29udHJvbGxlcnQACTQ0ODMxMDkuMHQACTQ0ODMxMDkuMHQAFeW+ruacjeWKoea1i+ivlemhueebrnBwfnEAfgAUdAAGRk9MREVSeABwcQB+ADN0ACHlvq7mnI3liqHmtYvor5Xpobnnm64gKDQ0ODMxMDkuMCl0AAkyNDMxMjE2LjB0AAk0NDgzMTA5LjB0ABXlvq7mnI3liqHmtYvor5Xpobnnm650AAkyNDMxMjE2LjBwcQB+ABZ4AHBxAH4AA3QADOS4quS6uuepuumXtHBwcHQACTI0MzEyMTYuMHQADOS4quS6uuepuumXtH5xAH4AFHQABFRFQU14AA==&lt;/byte-array&gt;" />
+Index: springCloud-gateway-9527/pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n    <parent>\r\n        <groupId>com.shiwangeweishenme</groupId>\r\n        <artifactId>springcloud</artifactId>\r\n        <version>1.0-SNAPSHOT</version>\r\n    </parent>\r\n\r\n    <groupId>org.example</groupId>\r\n    <artifactId>springCloud-gateway-9527</artifactId>\r\n\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.springframework.cloud</groupId>\r\n            <artifactId>spring-cloud-starter-gateway</artifactId>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.springframework.cloud</groupId>\r\n            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>\r\n        </dependency>\r\n        <!--之前的netflix eureka换了-->\r\n        <dependency>\r\n            <groupId>org.springframework.cloud</groupId>\r\n            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>\r\n            <!-- 排除Jersey，用SpringMVC Rest方式-->\r\n            <exclusions>\r\n                <exclusion>\r\n                    <groupId>com.sun.jersey</groupId>\r\n                    <artifactId>jersey-client</artifactId>\r\n                </exclusion>\r\n                <exclusion>\r\n                    <groupId>com.sun.jersey</groupId>\r\n                    <artifactId>jersey-core</artifactId>\r\n                </exclusion>\r\n                <exclusion>\r\n                    <groupId>com.sun.jersey.contribs</groupId>\r\n                    <artifactId>jersey-apache-client4</artifactId>\r\n                </exclusion>\r\n            </exclusions>\r\n        </dependency>\r\n\r\n        <!--试着解决Parameter 0 of method modifyRequestBodyGatewayFilterFactory的问题-->\r\n        <!--发现是那个client写成了server-->\r\n    </dependencies>\r\n\r\n</project>
+===================================================================
+diff --git a/springCloud-gateway-9527/pom.xml b/springCloud-gateway-9527/pom.xml
+--- a/springCloud-gateway-9527/pom.xml	
++++ b/springCloud-gateway-9527/pom.xml	
+@@ -13,14 +13,31 @@
+     <artifactId>springCloud-gateway-9527</artifactId>
+ 
+     <dependencies>
++        <!--还要引入这个，不然后面javax.servlet依赖找不到-->
+         <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-gateway</artifactId>
+         </dependency>
++
++        <!--引入Junit，用于测试-->
++        <dependency>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-test</artifactId>
++        </dependency>
++
++        <!-- 监视器 -->
++        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
++        <dependency>
++            <groupId>org.springframework.boot</groupId>
++            <artifactId>spring-boot-starter-actuator</artifactId>
++            <version>3.2.5</version>
++        </dependency>
++
+         <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+         </dependency>
++
+         <!--之前的netflix eureka换了-->
+         <dependency>
+             <groupId>org.springframework.cloud</groupId>
+Index: springCloud-provider-8001/src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#配置端口号\r\nserver:\r\n  port: 8001\r\n\r\n#配置mybatis-plus\r\nmybatis-plus:\r\n  #配置别名\r\n  type-aliases-package: com.feng.springCloud.pojo\r\n  #  #mybatis-plus配置路径\r\n  #  config-location: classpath:mybatis/mybatis-config.xml\r\n  #mapper配置路径\r\n  mapper-locations: classpath:mybatis/mapper/*.xml\r\n\r\n#配置spring\r\nspring:\r\n  application:\r\n    #给这个工程起个名字，一定要见字知义\r\n    name: springCloud-provider-8001\r\n  #配置数据源\r\n  datasource:\r\n    #配置数据源\r\n    type: com.alibaba.druid.pool.DruidDataSource\r\n    name: datasource\r\n    #驱动\r\n    driver-class-name: com.mysql.cj.jdbc.Driver\r\n    #数据库url，数据库名称根据自己的定\r\n    url: jdbc:mysql://localhost:3307/myblog?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai\r\n\r\n    username: root\r\n    password: Jason20040903\r\n    #通过别名的方式配置扩展插件,stat日志用的filter\r\n    filters: stat\r\n    #最大连接池数量\r\n    maxActive: 20\r\n    #初始化时建立物理连接的个数\r\n    initialSize: 5\r\n    #获取连接时最大等待时间，单位毫秒\r\n    maxWait: 60000\r\n    #最小连接池数量，已经不再使用了\r\n    minIdle: 1\r\n    #每60秒运行一次空闲连接回收器\r\n    timeBetweenEvictionRunsMillis: 60000\r\n    #池中的连接空闲30分钟后被回收,默认值就是30分钟\r\n    minEvictableIdleTimeMillis: 1800000\r\n    #验证连接是否可用，使用的SQL语句\r\n    validationQuery: select 1 from dual\r\n    #指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除\r\n    testWhileIdle: true\r\n    #借出连接时不要测试，否则很影响性能\r\n    testOnBorrow: false\r\n    #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能\r\n    testOnReturn: false\r\n    #是否缓存preparedStatement，也就是PSCache;PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭\r\n    poolPreparedStatements: true\r\n    #要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true\r\n    maxOpenPreparedStatements: -1\r\n\r\n# 配置Eureka, 把服务注册到哪里，哪个eu\r\neureka:\r\n  client:\r\n    register-with-eureka: true\r\n    fetch-registry: true\r\n    service-url:\r\n      defaultZone: http://eureka8002:8002/eureka/, http://eureka8003:8003/eureka/\r\n  instance:\r\n    prefer-ip-address: true\r\n    instance-id: ${spring.application.name}\r\n\r\nmanagement:\r\n  endpoints:\r\n    web:\r\n      exposure:\r\n        include: \"*\"\r\n\r\n# 描述项目基础信息\r\ninfo:\r\n  app:\r\n    name: node16-boot-actuator\r\n    port: 8001\r\n    version: 1.0.0\r\n    author: cicada\r\n\r\n# 这要开，不然feign会找不到这个provider\r\nsecurity:\r\n  open: Y
+===================================================================
+diff --git a/springCloud-provider-8001/src/main/resources/application.yml b/springCloud-provider-8001/src/main/resources/application.yml
+--- a/springCloud-provider-8001/src/main/resources/application.yml	
++++ b/springCloud-provider-8001/src/main/resources/application.yml	
+@@ -78,7 +78,7 @@
+     name: node16-boot-actuator
+     port: 8001
+     version: 1.0.0
+-    author: cicada
++    author: codeofwhite
+ 
+ # 这要开，不然feign会找不到这个provider
+ security:
