@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.shiwangeweishenme</groupId>
+    <artifactId>springcloud</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- 打包方式-->
+    <packaging>pom</packaging>
+    <modules>
+        <module>springCloud-api</module>
+        <module>springCloud-provider-8001</module>
+        <module>springCloud-eureka-8002</module>
+        <module>springCloud-client-80</module>
+        <module>springCloud-eureka-8003</module>
+        <module>springCloud-gateway-9527</module>
+        <module>springCloud-provider-hystrix-8004</module>
+        <module>springCloud-client-feign-81</module>
+        <module>springCloud-provider-8005</module>
+    </modules>
+
+    <!-- 版本控制 -->
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <swagger.version>2.8.0</swagger.version>
+        <junit.verison>4.12</junit.verison>
+        <lombok.version>1.18.12</lombok.version>
+        <druid.version>1
+            .1.2</druid.version>
+        <springboot.version>2.1.4.RELEASE</springboot.version>
+        <springCloud.version>Greenwich.SR1</springCloud.version>
+        <log4j.version>2.13.3</log4j.version>
+        <logback.version>1.2.3</logback.version>
+        <mysql.version>5.1.6</mysql.version>
+        <mybatis-plus-boot-starter.version>3.5.6</mybatis-plus-boot-starter.version>
+        <jetty.version>6.1.25</jetty.version>
+        <devtools.version>2.1.14.RELEASE</devtools.version>
+        <swagger.version>2.8.0</swagger.version>
+        <druid.version>1.1.21</druid.version>
+        <springBoot.version>2.1.4</springBoot.version>
+    </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <!-- 1.先导入springCloud依赖 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${springCloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 2.springCloud是基于很多个springBoot服务的，必须导入springBoot依赖-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 3.MySql数据库连接依赖 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- 4.数据源-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.1.20</version>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 5.junit-->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.verison}</version>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 6.lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- 7.log4j -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <!-- 8.我的项目用到了mybatis-plus,没用到的可以不用导入 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.4.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+
+            <!-- 9.Swagger依赖包，Swagger用于做接口测试，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <!-- 10. swagger配置-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <!-- 11.热部署 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${devtools.version}</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+</project>

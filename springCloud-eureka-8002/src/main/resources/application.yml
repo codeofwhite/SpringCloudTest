@@ -1,0 +1,28 @@
+server:
+  port: 8002
+
+spring:
+  application:
+    name: eureka8002.com
+
+#配置Eureka
+eureka:
+  instance:
+    #Eureka服务端的名字
+    hostname: eureka8002 #eureka服务端的实例名称
+    prefer-ip-address: false
+  client:
+    #因为微服务每个服务都是可以作为一个服务提供者，这里设置是否向Eureka注册自己
+    register-with-eureka: false
+    #固定写法，false表示自己是个注册中心
+    fetch-registry: false
+    #其他服务需要来到这个服务注册或发现，其它服务依靠下面这个url可以连接到Eureka
+    service-url:
+      #访问的url，使用动态拼接，可以访问下面的地址监控到微服务的运行
+      #要加eureka不然provider访问不了
+      defaultZone: http://eureka8003:8003/eureka/
+
+  server:
+    #关闭自我保护机制，保证不可用服务被及时踢除
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 2000
