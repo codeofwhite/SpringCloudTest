@@ -2,6 +2,8 @@ package springCloud.hystrix.service;
 
 import springCloud.hystrix.entity.User;
 
+import java.util.List;
+
 /**
  * @author codeofwhite
  * @date 2024/6/26
@@ -12,4 +14,6 @@ public interface UserService {
     User validateUser(String uemail, String password);
 
     void register(String username , String uemail, String password);
+
+    List<User> getAllUser();
 }

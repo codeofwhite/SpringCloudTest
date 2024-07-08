@@ -4,6 +4,8 @@ import springCloud.hystrix.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author codeofwhite
  * @date 2024/7/3
@@ -14,4 +16,6 @@ public interface UserMapper {
     User validateUser(@Param("uemail") String uemail, @Param("password") String password);
 
     void register(@Param("username") String username ,@Param("uemail") String uemail, @Param("password") String password);
+
+    List<User> getAllUser();
 }

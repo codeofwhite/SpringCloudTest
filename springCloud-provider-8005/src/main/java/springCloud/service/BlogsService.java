@@ -25,4 +25,6 @@ public interface BlogsService {
     Long getLikesCount(String blogId);
 
     boolean checkLikeStatus(String blogId, String userId);
+
+    void deleteBlog(String blogId);
 }

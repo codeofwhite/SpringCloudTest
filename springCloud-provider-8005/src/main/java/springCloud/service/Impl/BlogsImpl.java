@@ -71,4 +71,10 @@ public class BlogsImpl implements BlogsService {
         // 使用MongoTemplate的exists方法检查是否存在匹配的文档
         return mongoTemplate.exists(query, Blogs.class);
     }
+
+    @Override
+    public void deleteBlog(String blogId) {
+        Query query = new Query(Criteria.where("id").is(blogId));
+        mongoTemplate.remove(query, Blogs.class, COLLECTION_NAME);
+    }
 }

@@ -42,7 +42,7 @@ public class User implements Serializable {
      */
     private String status;
     /**
-     * 用户性别（0男，1女，2未知）
+     * 用户性别（0女，1男，2未知）
      */
     private String sex;
     /**
@@ -50,20 +50,20 @@ public class User implements Serializable {
      */
     private String avatar;
     /**
-     * 用户类型（0管理员，1普通用户）
+     * 用户类型（0普通用户，1管理员）
      */
     private String utype;
     /**
      * 创建时间
      */
-    private Date createTime;
+    private Date create_time;
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private Date update_time;
     /**
      * 删除标志（0代表未删除，1代表已删除）
      */
-    private Integer delFlag;
+    private Integer del_flag;
 }
 

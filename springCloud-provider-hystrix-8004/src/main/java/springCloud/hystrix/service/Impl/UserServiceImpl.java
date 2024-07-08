@@ -6,6 +6,8 @@ import springCloud.hystrix.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author codeofwhite
  * @date 2024/6/26
@@ -25,5 +27,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(String username, String uemail, String password) {
         userMapper.register(username, uemail, password);
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        return userMapper.getAllUser();
     }
 }

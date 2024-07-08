@@ -96,4 +96,10 @@ public class BlogController {
         boolean isLiked = blogsService.checkLikeStatus(blogId, userId);
         return ResponseEntity.ok(isLiked);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteBlog(@PathVariable String id) {
+        blogsService.deleteBlog(id);
+        return "success";
+    }
 }
