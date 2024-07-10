@@ -22,7 +22,7 @@ public class MapperTest {
     private UserMapper userMapper;
 
     @Test
-    public void testUserMapper(){
+    public void testUserMapper() {
         //查询所有用户
         List<User> users = userMapper.selectList(null);
         System.out.println(users);

@@ -32,7 +32,8 @@ public class BlogController {
     private UploadService uploadService;
 
     @PostMapping("/insertBlog")
-    public String insertBlog(@RequestPart("blogs") Blogs blogs, @RequestPart("file") MultipartFile file) throws ServerException {
+    public String insertBlog(@RequestPart("blogs") Blogs blogs, @RequestPart("file") MultipartFile file,
+                             @RequestPart("blogImg") MultipartFile blogImg) throws ServerException {
         // 获取当前时间：
         Calendar calendar = Calendar.getInstance();
         Date currentDate = new Date(calendar.getTime().getTime());
@@ -43,7 +44,6 @@ public class BlogController {
         // 将处理过的标题和随机字符串结合生成博客ID
         // String blogId = title + "_" + randomStr;
         Blogs blogs1 = new Blogs();
-        blogs1.setImgSrc(blogs.getImgSrc());
         blogs1.setTitle(blogs.getTitle());
         blogs1.setCategory(blogs.getCategory());
         blogs1.setCreateDate(currentDate);
@@ -57,12 +57,24 @@ public class BlogController {
 
         blogs1.setId(blogId);
 
-        // 插入博客到数据库
-        blogsService.insertBlog(blogs1);
-
         // 需要插入minio里面
         // 调用上传服务将文件上传到MinIO
         uploadService.upload(file, newFileName);
+
+        // 图片路径
+        // 获取真实路径，不是getName
+        String blogImgName = blogImg.getOriginalFilename();
+        String ImgFolderPath = "images/blogImg/";
+        String newImgFileName = ImgFolderPath + blogImgName;
+
+        // 设置博客图片位置
+        blogs1.setImgSrc(newImgFileName);
+
+        // 插入博客到数据库
+        blogsService.insertBlog(blogs1);
+
+        // 插入图片，第二个参数是folder名
+        uploadService.uploadImg(blogImg, ImgFolderPath);
 
         return blogs.getId();
     }

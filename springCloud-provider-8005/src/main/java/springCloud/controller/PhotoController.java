@@ -55,12 +55,12 @@ public class PhotoController {
         photo1.setCreateDate(currentDate);
 
         photosService.uploadPhoto(photo1);
-        uploadService.uploadImg(fileImg,folderPath);
+        uploadService.uploadImg(fileImg, folderPath);
         return "success";
     }
 
     @DeleteMapping("/deletePhoto/{id}")
-    public String deletePhoto(@PathVariable String id){
+    public String deletePhoto(@PathVariable String id) {
         photosService.deletePhoto(id);
         return "success";
     }

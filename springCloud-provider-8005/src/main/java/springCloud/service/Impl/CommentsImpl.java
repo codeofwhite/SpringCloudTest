@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import springCloud.entity.Comments;
 import springCloud.entity.Questions;
+import springCloud.entity.Reply;
 import springCloud.service.CommentsService;
 
 import java.util.List;
@@ -36,5 +38,13 @@ public class CommentsImpl implements CommentsService {
         Query query = new Query();
         query.addCriteria(Criteria.where("blogId").is(blogId));
         return mongoTemplate.find(query, Comments.class, COLLECTION_NAME);
+    }
+
+    @Override
+    public Comments addReply(String commentId, Reply reply) {
+        Query query = new Query(Criteria.where("_id").is(commentId));
+        Update update = new Update().push("replies", reply);
+        mongoTemplate.findAndModify(query, update, Comments.class, COLLECTION_NAME);
+        return mongoTemplate.findById(commentId, Comments.class, COLLECTION_NAME);
     }
 }

@@ -6,13 +6,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author codeofwhite
  * @date 2024/7/3
  * @Description
  */
-@Document(collection="comments")
+@Document(collection = "comments")
 @Setter
 @Getter
 public class Comments {
@@ -30,6 +31,8 @@ public class Comments {
 
     private String blogId;
 
+    private List<Reply> replies; // 新增回复列表字段
+
     @Override
     public String toString() {
         return "Comments{" +
@@ -39,6 +42,7 @@ public class Comments {
                 ", create_date=" + createDate +
                 ", update_date=" + updateDate +
                 ", blog_id=" + blogId +
+                ", replies=" + replies +
                 '}';
     }
 }

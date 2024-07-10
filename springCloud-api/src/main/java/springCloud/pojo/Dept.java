@@ -22,12 +22,12 @@ import java.io.Serializable;
 public class Dept implements Serializable {
 
     /**
-     *  部门编号
+     * 部门编号
      */
     private int deptNum;
 
     /**
-     *  部门名称
+     * 部门名称
      */
     private String name;
 

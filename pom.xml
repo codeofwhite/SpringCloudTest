@@ -30,7 +30,8 @@
         <junit.verison>4.12</junit.verison>
         <lombok.version>1.18.12</lombok.version>
         <druid.version>1
-            .1.2</druid.version>
+            .1.2
+        </druid.version>
         <springboot.version>2.1.4.RELEASE</springboot.version>
         <springCloud.version>Greenwich.SR1</springCloud.version>
         <log4j.version>2.13.3</log4j.version>

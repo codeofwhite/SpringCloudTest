@@ -12,7 +12,7 @@ import java.util.Date;
  * @date 2024/6/30
  * @Description
  */
-@Document(collection="questions")
+@Document(collection = "questions")
 @Setter
 @Getter
 public class Questions {

@@ -16,7 +16,7 @@ public class RibbonConfigBean {
     // 配置负载均衡
     @Bean //将 RestTemplate 注入到容器中
     @LoadBalanced //在客户端使用 RestTemplate 请求服务端时，开启负载均衡（Ribbon）
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 }

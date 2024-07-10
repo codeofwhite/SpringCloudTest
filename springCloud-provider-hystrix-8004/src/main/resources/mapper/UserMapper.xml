@@ -3,16 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="springCloud.hystrix.mapper.UserMapper">
     <insert id="register">
-        insert into user_info(uemail,uname,upwd) values (#{uemail},#{username},#{password});
+        insert into user_info(uemail, uname, upwd)
+        values (#{uemail}, #{username}, #{password});
     </insert>
     <select id="validateUser" resultType="springCloud.hystrix.entity.User">
-        select * from user_info where uemail = #{uemail};
+        select *
+        from user_info
+        where uemail = #{uemail};
     </select>
     <select id="getAllUser" resultType="springCloud.hystrix.entity.User">
-        select * from user_info;
+        select *
+        from user_info;
     </select>
     <select id="findByEmail" resultType="springCloud.hystrix.entity.User">
-        SELECT * FROM user_info WHERE uemail = #{uemail}
+        SELECT *
+        FROM user_info
+        WHERE uemail = #{uemail}
     </select>
     <!-- 需要检查是否为null或空   -->
     <update id="updateUser">

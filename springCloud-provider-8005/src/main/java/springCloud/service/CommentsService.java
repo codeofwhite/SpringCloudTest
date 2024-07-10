@@ -3,6 +3,7 @@ package springCloud.service;
 import org.springframework.stereotype.Service;
 import springCloud.entity.Comments;
 import springCloud.entity.Questions;
+import springCloud.entity.Reply;
 
 import java.util.List;
 
@@ -13,7 +14,9 @@ import java.util.List;
  */
 @Service
 public interface CommentsService {
-    public void insertComment(Comments comments);
+    void insertComment(Comments comments);
 
-    public List<Comments> getAllComments(String blogId);
+    List<Comments> getAllComments(String blogId);
+
+    Comments addReply(String commentId, Reply reply);
 }

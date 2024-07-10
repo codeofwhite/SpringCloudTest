@@ -3,9 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="springCloud.hystrix.mapper.DanmuMapper">
     <insert id="insertDanmu">
-        insert into danmu(danmu,uemail,blog_id) VALUES (#{danmu},#{uemail},#{blogId})
+        insert into danmu(danmu, uemail, blog_id)
+        VALUES (#{danmu}, #{uemail}, #{blogId})
     </insert>
     <select id="selectDanmu" resultType="String">
-        select danmu from danmu where blog_id = #{blogId}
+        select danmu
+        from danmu
+        where blog_id = #{blogId}
     </select>
 </mapper>

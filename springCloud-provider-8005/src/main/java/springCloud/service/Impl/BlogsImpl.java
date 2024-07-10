@@ -42,7 +42,7 @@ public class BlogsImpl implements BlogsService {
     @Override
     public void likeBlog(String blogId, String userId) {
         Query query = new Query(Criteria.where("id").is(blogId).and("likedUserIds").ne(userId));
-        Update update = new Update().addToSet("likedUserIds",userId).inc("likesCount", 1);
+        Update update = new Update().addToSet("likedUserIds", userId).inc("likesCount", 1);
         mongoTemplate.findAndModify(query, update, Blogs.class, COLLECTION_NAME);
     }
 
@@ -85,13 +85,13 @@ public class BlogsImpl implements BlogsService {
     public void updateBlog(Blogs blogs) {
         Query query = new Query(Criteria.where("id").is(blogs.getId()));
         Update update = new Update();
-        if(blogs.getImgSrc() != null){
+        if (blogs.getImgSrc() != null) {
             update.set("imgSrc", blogs.getImgSrc());
         }
-        if(blogs.getTitle() != null){
+        if (blogs.getTitle() != null) {
             update.set("title", blogs.getTitle());
         }
-        if(blogs.getCategory() != null){
+        if (blogs.getCategory() != null) {
             update.set("category", blogs.getCategory());
         }
         mongoTemplate.findAndModify(query, update, Blogs.class, COLLECTION_NAME);

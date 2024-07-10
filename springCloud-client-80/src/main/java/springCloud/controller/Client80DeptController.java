@@ -18,13 +18,13 @@ import org.springframework.web.client.RestTemplate;
 public class Client80DeptController {
 
     /**
-     *  使用这个模板来调用服务
+     * 使用这个模板来调用服务
      */
     @Autowired
     private RestTemplate restTemplate;
 
     /**
-     *  你的服务提供者配置的是什么port，你就按照你的你来
+     * 你的服务提供者配置的是什么port，你就按照你的你来
      */
     // 通过 url 地址调用， 单机版
     // private static final String REST_URL_PREFIX = "http://localhost:8001";
@@ -33,14 +33,14 @@ public class Client80DeptController {
     private static final String REST_URL_PREFIX = "http://springCloud-provider-8001";
 
     @RequestMapping("/client/dept/get/{id}")
-    public Dept get(@PathVariable("id") int id){
+    public Dept get(@PathVariable("id") int id) {
         //第一个参数是你service需要调用的url，第二个参数是返回值类型
-        return restTemplate.getForObject(REST_URL_PREFIX + "/dept/get/" + id , Dept.class);
+        return restTemplate.getForObject(REST_URL_PREFIX + "/dept/get/" + id, Dept.class);
     }
 
     @RequestMapping("/client/dept/add")
-    public ResponseEntity<Boolean> addDept(Dept dept){
+    public ResponseEntity<Boolean> addDept(Dept dept) {
         //第一个参数是你service需要调用的url，第二个参数是需要传递的对象，第三个参数是返回值类型
-        return restTemplate.postForEntity(REST_URL_PREFIX + "/dept/add" , dept , Boolean.class);
+        return restTemplate.postForEntity(REST_URL_PREFIX + "/dept/add", dept, Boolean.class);
     }
 }

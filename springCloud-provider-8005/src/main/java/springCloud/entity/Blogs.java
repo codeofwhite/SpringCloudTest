@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2024/7/4
  * @Description
  */
-@Document(collection="blogs")
+@Document(collection = "blogs")
 @Setter
 @Getter
 public class Blogs {
