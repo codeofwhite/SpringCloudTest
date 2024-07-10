@@ -22,13 +22,13 @@ public class DanmuController {
     DanmuService danmuService;
 
     @PostMapping("/insertDanmu")
-    public String insertDanmu(String danmu, String uemail, String blogId){
-        danmuService.insertDanmu(danmu,uemail,blogId);
+    public String insertDanmu(String danmu, String uemail, String blogId) {
+        danmuService.insertDanmu(danmu, uemail, blogId);
         return "success";
     }
 
     @PostMapping("/selectDanmu")
-    public List<String> selectDanmu(String blogId){
+    public List<String> selectDanmu(String blogId) {
         return danmuService.selectDanmu(blogId);
     }
 }

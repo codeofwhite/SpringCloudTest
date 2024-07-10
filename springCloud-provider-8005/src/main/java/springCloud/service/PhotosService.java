@@ -12,5 +12,9 @@ import java.util.List;
  */
 @Service
 public interface PhotosService {
-    public List<Photos> getAllPhotos();
+    List<Photos> getAllPhotos();
+
+    void uploadPhoto(Photos photo); // 添加上传图片的方法声明
+
+    void deletePhoto(String photoId); // 添加删除照片的方法声明
 }

@@ -28,10 +28,9 @@ public class DeptServiceImpl implements DeptService {
     @Override
     public String deptInfo_Timeout(Integer id) {
         int outTime = 6;
-        try{
+        try {
             TimeUnit.SECONDS.sleep(outTime);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return "线程池：" + Thread.currentThread().getName() + "  deptInfo_Timeout,id:   " + id + "  耗时: " + outTime;
@@ -42,7 +41,7 @@ public class DeptServiceImpl implements DeptService {
     @HystrixCommand(fallbackMethod = "deptCircuitBreaker_fallback", commandProperties = {
             //以下参数在 HystrixCommandProperties 类中有默认配置
             @HystrixProperty(name = "circuitBreaker.enabled", value = "true"), //是否开启熔断器
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds",value = "1000"), //统计时间窗
+            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "1000"), //统计时间窗
             // 如果服务调用次数不足 10 次，即使所有的请求都调用出错，熔断器也不会打开。
             @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"), //统计时间窗内请求次数
             @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"), //休眠时间窗口期
@@ -63,7 +62,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
     // 当服务出现故障后，调用该方法给出友好提示
-    public String dept_TimeoutHandler(Integer id){
-        return "重开大学提示您，系统繁忙请稍后再试！"+"线程池：" + Thread.currentThread().getName() + "  deptInfo_Timeout,id:   " + id;
+    public String dept_TimeoutHandler(Integer id) {
+        return "重开大学提示您，系统繁忙请稍后再试！" + "线程池：" + Thread.currentThread().getName() + "  deptInfo_Timeout,id:   " + id;
     }
 }

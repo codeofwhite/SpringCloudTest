@@ -30,8 +30,8 @@ public class User implements Serializable {
      */
     private String uname;
     /*
-    *  邮箱
-    * */
+     *  邮箱
+     * */
     private String uemail;
     /**
      * 密码

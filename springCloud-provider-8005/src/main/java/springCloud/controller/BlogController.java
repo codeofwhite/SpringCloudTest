@@ -102,4 +102,27 @@ public class BlogController {
         blogsService.deleteBlog(id);
         return "success";
     }
+
+    @PostMapping("updateBlog")
+    public String updateBlog(@RequestPart Blogs blogs, @RequestPart MultipartFile markDownFile) throws ServerException {
+        // 获取当前时间：
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = new Date(calendar.getTime().getTime());
+
+        System.out.println(blogs.getId());
+        System.out.println(blogs.getTitle());
+        System.out.println(blogs.getCategory());
+
+        blogs.setUpdateDate(currentDate);
+        blogsService.updateBlog(blogs);
+        String newFileName = blogs.getId() + ".md";
+        String folderPath = "markdowns/"; // 想上传到的文件夹路径
+        newFileName = folderPath + newFileName;
+
+        // 需要插入minio里面
+        // 调用上传服务将文件上传到MinIO
+        uploadService.upload(markDownFile, newFileName);
+
+        return "success";
+    }
 }

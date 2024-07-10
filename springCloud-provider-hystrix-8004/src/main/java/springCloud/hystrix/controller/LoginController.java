@@ -33,9 +33,9 @@ public class LoginController {
 
         if (Objects.equals(loginRequest.getUemail(), user.getUemail())) {
             // 登录成功
-            if(Objects.equals(loginRequest.getPassword(), user.getUpwd())){
+            if (Objects.equals(loginRequest.getPassword(), user.getUpwd())) {
                 return ResponseEntity.ok(new LoginResponse(user.getUemail(), true));
-            }else {
+            } else {
                 // 登录失败
                 return ResponseEntity.ok(new LoginResponse("", false));
             }
@@ -55,7 +55,7 @@ public class LoginController {
             return ResponseEntity.ok(new LoginResponse("", false));
         } else {
             // 注册成功
-            userService.register(registerRequest.getUsername(),registerRequest.getUemail(), registerRequest.getPassword());
+            userService.register(registerRequest.getUsername(), registerRequest.getUemail(), registerRequest.getPassword());
             return ResponseEntity.ok(new LoginResponse(registerRequest.getUemail(), true));
         }
     }

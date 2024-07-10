@@ -2,6 +2,7 @@ package springCloud.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 import springCloud.entity.Blogs;
 
 import java.util.ArrayList;
@@ -27,4 +28,6 @@ public interface BlogsService {
     boolean checkLikeStatus(String blogId, String userId);
 
     void deleteBlog(String blogId);
+
+    void updateBlog(@RequestBody Blogs blogs);
 }

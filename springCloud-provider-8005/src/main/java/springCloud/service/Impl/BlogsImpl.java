@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import springCloud.entity.Blogs;
 import springCloud.entity.Photos;
 import springCloud.service.BlogsService;
@@ -76,5 +77,23 @@ public class BlogsImpl implements BlogsService {
     public void deleteBlog(String blogId) {
         Query query = new Query(Criteria.where("id").is(blogId));
         mongoTemplate.remove(query, Blogs.class, COLLECTION_NAME);
+    }
+
+    // 更新博客内容
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void updateBlog(Blogs blogs) {
+        Query query = new Query(Criteria.where("id").is(blogs.getId()));
+        Update update = new Update();
+        if(blogs.getImgSrc() != null){
+            update.set("imgSrc", blogs.getImgSrc());
+        }
+        if(blogs.getTitle() != null){
+            update.set("title", blogs.getTitle());
+        }
+        if(blogs.getCategory() != null){
+            update.set("category", blogs.getCategory());
+        }
+        mongoTemplate.findAndModify(query, update, Blogs.class, COLLECTION_NAME);
     }
 }

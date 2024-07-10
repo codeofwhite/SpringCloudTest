@@ -18,8 +18,8 @@ public class DanmuServiceImpl implements DanmuService {
     DanmuMapper danmuMapper;
 
     @Override
-    public void insertDanmu(String danmu, String uemail, String blogId){
-        danmuMapper.insertDanmu(danmu,uemail,blogId);
+    public void insertDanmu(String danmu, String uemail, String blogId) {
+        danmuMapper.insertDanmu(danmu, uemail, blogId);
     }
 
     @Override

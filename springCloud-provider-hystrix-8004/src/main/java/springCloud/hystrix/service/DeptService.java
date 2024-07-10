@@ -8,6 +8,7 @@ package springCloud.hystrix.service;
 public interface DeptService {
     // hystrix 熔断器示例 ok
     public String deptInfo_Ok(Integer id);
+
     // hystrix 熔断器超时
     public String deptInfo_Timeout(Integer id);
 

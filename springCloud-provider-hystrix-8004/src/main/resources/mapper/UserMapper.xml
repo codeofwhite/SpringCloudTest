@@ -11,4 +11,24 @@
     <select id="getAllUser" resultType="springCloud.hystrix.entity.User">
         select * from user_info;
     </select>
+    <select id="findByEmail" resultType="springCloud.hystrix.entity.User">
+        SELECT * FROM user_info WHERE uemail = #{uemail}
+    </select>
+    <!-- 需要检查是否为null或空   -->
+    <update id="updateUser">
+        UPDATE user_info
+        <set>
+            <if test="uname != null and uname != ''">
+                uname = #{uname},
+            </if>
+            <if test="upwd != null and upwd != ''">
+                upwd = #{upwd},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            update_time = #{update_time}
+        </set>
+        WHERE uemail = #{uemail}
+    </update>
 </mapper>
