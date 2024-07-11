@@ -3,16 +3,13 @@ package springCloud.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springCloud.entity.Comments;
-import springCloud.entity.Questions;
-import springCloud.entity.Reply;
+import springCloud.model.Reply;
 import springCloud.service.CommentsService;
-import springCloud.service.QuestionsService;
 
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author codeofwhite
@@ -21,7 +18,6 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("comments")
-@CrossOrigin
 public class CommentsController {
     @Autowired
     private CommentsService commentsService;

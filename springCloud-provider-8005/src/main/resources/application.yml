@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Provider8005  #微服务名称，对外暴漏的微服务名称，十分重要
+    name: spring-cloud-provider-8005  #微服务名称，对外暴漏的微服务名称，十分重要
 
   data:
     mongodb:
@@ -43,3 +43,7 @@ minio:
     secretKey: cb8SkANxDCm90kdLz2puij4U7J8ZmlTBWAHYInT3
     secure: false
     bucketName: myblogbucket
+
+# 这要开，不然feign会找不到这个provider
+security:
+  open: Y

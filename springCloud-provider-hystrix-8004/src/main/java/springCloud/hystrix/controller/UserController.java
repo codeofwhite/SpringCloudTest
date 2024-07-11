@@ -13,7 +13,6 @@ import java.util.List;
  * @Description
  */
 @RestController
-@CrossOrigin
 @RequestMapping("user")
 public class UserController {
 

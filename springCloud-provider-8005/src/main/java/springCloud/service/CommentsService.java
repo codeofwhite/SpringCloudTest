@@ -2,8 +2,7 @@ package springCloud.service;
 
 import org.springframework.stereotype.Service;
 import springCloud.entity.Comments;
-import springCloud.entity.Questions;
-import springCloud.entity.Reply;
+import springCloud.model.Reply;
 
 import java.util.List;
 

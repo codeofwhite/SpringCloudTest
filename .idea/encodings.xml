@@ -3,10 +3,10 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/springCloud-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-api/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/springCloud-client-80/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/springCloud-client-80/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/springCloud-client-feign-81/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/springCloud-client-feign-81/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-client-83/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-client-83/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-client-feign-84/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-client-feign-84/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-eureka-8002/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-eureka-8002/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-eureka-8003/src/main/java" charset="UTF-8" />
@@ -17,6 +17,11 @@
     <file url="file://$PROJECT_DIR$/springCloud-provider-8001/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-provider-8005/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-provider-8005/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-provider-8006/lib" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-provider-8006/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-provider-8006/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-provider-8007-Question/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springCloud-provider-8007-Question/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-provider-hystrix-8004/lib" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-provider-hystrix-8004/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springCloud-provider-hystrix-8004/src/main/resources" charset="UTF-8" />

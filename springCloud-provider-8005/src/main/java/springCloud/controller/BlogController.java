@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("blogs")
-@CrossOrigin
+
 public class BlogController {
     @Autowired
     BlogsService blogsService;

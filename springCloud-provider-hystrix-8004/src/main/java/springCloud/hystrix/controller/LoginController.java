@@ -1,5 +1,6 @@
 package springCloud.hystrix.controller;
 
+import org.springframework.web.bind.annotation.*;
 import springCloud.hystrix.model.LoginRequest;
 import springCloud.hystrix.model.LoginResponse;
 import springCloud.hystrix.model.RegisterRequest;
@@ -7,10 +8,6 @@ import springCloud.hystrix.entity.User;
 import springCloud.hystrix.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
@@ -20,7 +17,7 @@ import java.util.Objects;
  * @Description
  */
 @RestController
-@CrossOrigin
+@RequestMapping("user")
 public class LoginController {
     @Autowired
     // 假设有一个用户服务来验证用户信息

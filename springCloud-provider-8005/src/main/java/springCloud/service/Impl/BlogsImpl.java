@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import springCloud.entity.Blogs;
-import springCloud.entity.Photos;
 import springCloud.service.BlogsService;
 
 import java.util.List;

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import springCloud.entity.Comments;
-import springCloud.entity.Questions;
-import springCloud.entity.Reply;
+import springCloud.model.Reply;
 import springCloud.service.CommentsService;
 
 import java.util.List;

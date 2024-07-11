@@ -1,0 +1,23 @@
+server:
+  port: 84
+
+eureka:
+  client:
+    # 这个不是true访问不到Provider
+    register-with-eureka: true #服务消费者可以不向服务注册中心注册服务
+    service-url:
+      defaultZone: http://eureka8002:8002/eureka/,http://eureka8003:8003/eureka/
+    fetch-registry: true  #服务消费者客户端需要去检索服务
+
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+  application:
+    name: springCloud-client-81
+
+logging:
+  level:
+    com:
+      kerwin: debug
